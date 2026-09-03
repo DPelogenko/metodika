@@ -2,7 +2,7 @@
 // Подключение стилей и скриптов(?)
 function metodika_enqueue_scripts() {
     wp_enqueue_style( 'main', get_stylesheet_uri(), [], filemtime( get_stylesheet_directory() . '/style.css' ) );
-    // wp_enqueue_script( 'metodika-scripts', get_template_directory_uri() . '/assets/js/main.js', array(), null, true );
+    wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/main.js', array(), null, true );
 }
 add_action( 'wp_enqueue_scripts', 'metodika_enqueue_scripts' );
 
@@ -63,8 +63,8 @@ add_action( 'admin_menu', function () {
     $menu['2.1'] = ['', 'read', 'separator-custom-1', '', 'wp-menu-separator'];
   
     $hook = add_menu_page(
-        __('Настройки темы', 'metodika'),
-        __('Настройки темы', 'metodika'),
+        __( 'Настройки темы', 'metodika' ),
+        __( 'Настройки темы', 'metodika' ),
         'edit_theme_options',
         'metodika-theme-options',
         'metodika_render_theme_options_page',
@@ -109,3 +109,40 @@ add_filter( 'acf/location/rule_match/metodika_options', function ( $match, $rule
     $result = $on && $rule['value'] === 'metodika_options';
     return $rule['operator'] === '!=' ? !$result : $result;
 }, 10, 3 );
+
+// Кастомный walker для меню с выпадающими подменю и описаниями
+class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
+    public function start_lvl(&$output, $depth = 0, $args = null) {
+        $output .= '<ul class="sub_menu">';
+    }
+
+    public function end_lvl(&$output, $depth = 0, $args = null) {
+        $output .= '</ul>';
+    }
+
+    public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $has_children = !empty($args->walker->has_children);
+        
+        $output .= '<li class="menu_item' . ($has_children ? ' menu_item_has_children' : '') . '">';
+        
+        if ($has_children) {
+            $output .= '<button class="menu_link menu_link_has_children">';
+            $output .= esc_html($item->title);
+            if (!empty($item->description)) {
+                $output .= '<span class="menu_description">' . esc_html($item->description) . '</span>';
+            }
+            $output .= '</button>';
+        } else {
+            $output .= '<a href="' . esc_url($item->url) . '" class="menu_link">';
+            $output .= esc_html($item->title);
+            if (!empty($item->description)) {
+                $output .= '<span class="menu_description">' . esc_html($item->description) . '</span>';
+            }
+            $output .= '</a>';
+        }
+    }
+
+    public function end_el(&$output, $item, $depth = 0, $args = null) {
+        $output .= '</li>';
+    }
+}
