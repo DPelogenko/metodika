@@ -119,7 +119,7 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
     public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
         $has_children = !empty($args->walker->has_children);
         
-        $output .= '<li class="menu_item' . ($has_children ? ' menu_item_has_children' : '') . '">';
+        $output .= '<li class="menu_item' . ($has_children ? ' menu_item_has_children' : '') . ' ' . ( count( $item->classes ) ? implode( ' ', $item->classes ) : '' ) . '">';
         
         if ($has_children) {
             $output .= '<button class="menu_link menu_link_has_children">';

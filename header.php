@@ -45,6 +45,8 @@
                 <a href="#" class="consult_btn"><?= __( 'Бесплатная консультация', 'metodika' ) ?></a>
             </div>
 
+            <div class="header_separator"></div>
+
             <nav class="header_nav">
                 <?php wp_nav_menu( array(
                     'theme_location' => 'primary',
@@ -62,7 +64,7 @@
                 ?>
                 <div class="stars">
                     <?php for( $i = 1; $i <= 5; $i++ ) { ?>
-                        <span class="star <?= $i <= (int)$rating['stars'] ? 'active' : ''; ?>">★</span>
+                        <span class="star <?= $i <= (int)$rating['stars'] ? 'active' : ''; ?>">&#9733;</span>
                     <?php } ?>
                 </div>
                 <span><?= wp_kses( $rating['text'], ['span'] ); ?></span>
@@ -76,7 +78,7 @@
                 <?php if( function_exists( 'the_custom_logo' ) ) { the_custom_logo(); } ?>
             </div>
             <div class="header_mobile_buttons">
-                <a href="tel:<?= esc_attr( $contacts['phone'] ?? '' ); ?>" class="mobile_phone">📞</a>
+                <a href="tel:<?= esc_attr( $contacts['phone'] ?? '' ); ?>" class="mobile_phone"><img src="<?= get_template_directory_uri() . '/assets/images/phone.svg' ?>" alt="Позвонить"></a>
                 <button class="burger_menu" aria-label="Меню">
                     <span></span><span></span><span></span>
                 </button>
