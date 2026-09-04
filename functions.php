@@ -88,10 +88,6 @@ function metodika_render_theme_options_page() {
     ] );
     echo '</div><br>';
 }
-// Функция для получения настроек темы
-function metodika_option( $name ) {
-    return function_exists( 'get_field' ) ? get_field( $name, 'option' ) : null;
-}
 // Добавить правило локаций для ACF, тип
 add_filter( 'acf/location/rule_types', function ( $types ) {
     $types['Тема']['metodika_options'] = __( 'Страница настроек', 'metodika' );
@@ -133,7 +129,7 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
             }
             $output .= '</button>';
         } else {
-            $output .= '<a href="' . esc_url($item->url) . '" class="menu_link">';
+            $output .= '<a href="' . esc_url($item->url) . '" class="menu_link" ' . ($item->target ? 'target="' . $item->target . '"' : '') . '>';
             $output .= esc_html($item->title);
             if (!empty($item->description)) {
                 $output .= '<span class="menu_description">' . esc_html($item->description) . '</span>';

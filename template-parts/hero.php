@@ -4,7 +4,7 @@ $block_1 = get_field( 'hero_block_1' );
 $block_2 = get_field( 'hero_block_2' );
 $corner  = get_field( 'hero_block_add' );
 ?>
-<section class="hero">
+<div class="container"><section class="hero">
 
     <?php if( $image ) { ?>
         <div class="hero_image_wrapper">
@@ -41,12 +41,13 @@ $corner  = get_field( 'hero_block_add' );
                     </div>
                 </div>
             <?php } ?>
+
+            <?php if( $corner ) { ?>
+                <div class="hero_block corner">
+                    <?= wp_kses_post( $corner ); ?>
+                </div>
+            <?php } ?>
         </div>
 
-        <?php if( $corner ) { ?>
-            <div class="hero_corner">
-                <?= wp_kses_post( $corner ); ?>
-            </div>
-        <?php } ?>
     </div>
-</section>
+</section></div>
