@@ -422,6 +422,7 @@ a[target="_blank"]:not([rel="nofollow"])::after {
 .hero_blocks {
     display: flex;
     gap: 40px;
+    justify-content: space-between;
 }
 
 .hero_block {
@@ -476,6 +477,7 @@ a[target="_blank"]:not([rel="nofollow"])::after {
 }
 
 .hero_block_text {
+    flex-grow: 1;
     margin: 0;
     color: var(--color-text);
     font-size: 20px;
@@ -942,7 +944,7 @@ a[target="_blank"]:not([rel="nofollow"])::after {
         font-weight: 500;
         line-height: 20px;
     }
-    
+
     .hero_block.corner br {
         display: none;
     }

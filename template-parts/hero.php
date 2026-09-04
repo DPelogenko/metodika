@@ -23,7 +23,7 @@ $corner  = get_field( 'hero_block_add' );
 
         <div class="hero_blocks">
             <?php foreach( [$block_1, $block_2] as $block ) { 
-                if( empty( $block['title'] ) ) continue; ?>
+                if( empty( $block['title'] ) && empty( $block['text'] ) ) continue; ?>
                 <div class="hero_block">
                     <span class="hero_block_label"><?= esc_html( $block['label'] ); ?></span>
                     <h3 class="hero_block_title"><?= esc_html( $block['title'] ); ?></h3>
